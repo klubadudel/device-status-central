@@ -17,7 +17,6 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     console.log("AppLayoutContent: Auth state - loading:", loading, "user:", user?.email || null, "pathname:", pathname);
-    // Only redirect IF loading is complete AND there's no user.
     if (!loading && !user) {
       console.log("AppLayoutContent: loading false, user null. Redirecting to login.");
       router.replace(`/login?redirect=${pathname}`);
@@ -37,9 +36,7 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
     );
   }
 
-  // If loading is false, but there's no user (and we're not already on login, though this layout shouldn't be for /login)
-  // the useEffect above will handle the redirect. In the meantime, show a minimal loader or null.
-  if (!user && pathname !== '/login') { // This check is a safeguard.
+  if (!user && pathname !== '/login') { 
     console.log("AppLayoutContent: loading false, user null, not on login. Showing redirecting indicator.");
      return (
         <div className="flex h-screen items-center justify-center bg-background">
@@ -52,14 +49,16 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
     );
   }
   
-  // If we reach here, loading is false and user exists.
   console.log("AppLayoutContent: loading false, user exists. Rendering app shell.");
   return (
     <SidebarProvider defaultOpen={true}>
       <AppSidebar />
-      <SidebarInset>
-        <AppHeader />
-        <main className="flex-1 p-4 sm:p-6 bg-background min-h-[calc(100vh-4rem)]"> 
+      <SidebarInset> {/* This renders as a <main> tag */}
+        <div className="sticky top-0 z-30 bg-background"> {/* Wrapper for sticky header */}
+          <AppHeader />
+        </div>
+        {/* The main scrollable area for page content */}
+        <div className="flex-1 p-4 sm:p-6 overflow-y-auto overflow-x-auto bg-background"> 
           <Suspense fallback={
             <div className="flex h-full items-center justify-center">
               <svg className="animate-spin h-8 w-8 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -71,7 +70,7 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
           }>
             {children}
           </Suspense>
-        </main>
+        </div>
       </SidebarInset>
     </SidebarProvider>
   );

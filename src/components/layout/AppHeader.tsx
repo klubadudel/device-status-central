@@ -33,7 +33,8 @@ export function AppHeader() {
 
   if (loading) {
     return (
-      <header className="sticky top-0 z-30 flex h-16 items-center justify-between gap-4 border-b bg-background px-4 md:px-6 shadow-sm">
+      // Removed sticky, z-index from header, w-full will be applied by parent div if needed
+      <header className="flex h-16 items-center justify-between gap-4 border-b bg-background px-4 md:px-6 shadow-sm">
         <div className="flex items-center gap-2">
           <Skeleton className="h-7 w-7 md:hidden" /> {/* SidebarTrigger placeholder */}
           <Skeleton className="h-6 w-32" /> {/* Title placeholder */}
@@ -44,10 +45,10 @@ export function AppHeader() {
   }
 
   return (
-    <header className="sticky top-0 z-30 flex h-16 items-center justify-between gap-4 border-b bg-background px-4 md:px-6 shadow-sm">
+    // Removed sticky, top-0, z-30. Added w-full to ensure it fills its sticky wrapper.
+    <header className="flex h-16 items-center justify-between gap-4 border-b bg-background px-4 md:px-6 shadow-sm w-full">
       <div className="flex items-center gap-4">
         <SidebarTrigger className="md:hidden" /> 
-        {/* Placeholder for dynamic title or breadcrumbs if needed later */}
         <h1 className="text-lg font-semibold md:text-xl text-foreground hidden sm:block">
           Device Dashboard
         </h1>
