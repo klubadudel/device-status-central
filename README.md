@@ -102,7 +102,7 @@ This project follows a modular structure combining **Next.js**, **Firebase**, an
 ├── tailwind.config.ts            # Tailwind CSS configuration
 └── tsconfig.json                 # TypeScript compiler configuration
 
----
+```
 
 ## Deployment
 
