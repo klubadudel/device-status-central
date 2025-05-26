@@ -1,0 +1,109 @@
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Default deny all reads and writes
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // User Collection Rules
+    match /users/{userId} {
+        // GET: User can get their own document. National admin can get any user's document.
+        allow get: if request.auth != null &&
+                     (request.auth.uid == userId || getUser(request.auth.uid).data.role == 'national');
+
+        // CREATE: National admin can create new user documents.
+        // The {userId} in this path will be the ID of the NEW user being created.
+        // The request.auth.uid will be the ID of the admin performing the creation.
+        allow create: if request.auth != null &&
+                        getUser(request.auth.uid).data.role == 'national';
+
+        // UPDATE: User can update their own document.
+        // National admin can also update any user's document.
+        allow update: if request.auth != null &&
+                        (request.auth.uid == userId || getUser(request.auth.uid).data.role == 'national');
+
+        // DELETE: National admin can delete other users (but not themselves).
+        allow delete: if request.auth != null &&
+                        getUser(request.auth.uid).data.role == 'national' &&
+                        request.auth.uid != userId;
+    }
+
+    // Rule for LISTING all users in the /users collection
+    // This is necessary for the User Management page for national admins.
+    match /users {
+      allow list: if request.auth != null && getUser(request.auth.uid).data.role == 'national';
+    }
+
+    // Regions collection rules
+    match /regions/{regionId} {
+      // Any authenticated user can read individual regions and list all regions.
+      allow get, list: if request.auth != null;
+
+      // Only national admin can create, update, or delete regions
+      allow create, update, delete: if request.auth != null && getUser(request.auth.uid).data.role == 'national';
+    }
+
+    // Branches collection rules
+    match /branches/{branchId} {
+      // Any authenticated user can read individual branches and list all branches.
+      allow get, list: if request.auth != null;
+
+      // Rules for creating branches
+      allow create: if request.auth != null &&
+                      (
+                        getUser(request.auth.uid).data.role == 'national' ||
+                        (getUser(request.auth.uid).data.role == 'regional' && request.resource.data.regionId == getUser(request.auth.uid).data.regionId)
+                      );
+
+      // Rules for updating or deleting existing branches
+      allow update, delete: if request.auth != null &&
+                            (
+                              getUser(request.auth.uid).data.role == 'national' ||
+                              (getUser(request.auth.uid).data.role == 'regional' && resource.data.regionId == getUser(request.auth.uid).data.regionId)
+                            );
+    }
+
+    // Devices collection rules
+    match /devices/{deviceId} {
+      // Any authenticated user can read individual devices and list all devices.
+      allow get, list: if request.auth != null;
+
+      // Rules for creating devices
+      allow create: if request.auth != null &&
+                      (
+                        getUser(request.auth.uid).data.role == 'national' ||
+                        (getUser(request.auth.uid).data.role == 'branch' && request.resource.data.branchId == getUser(request.auth.uid).data.branchId)
+                      );
+
+      // Rules for updating or deleting existing devices
+      allow update, delete: if request.auth != null &&
+                            (
+                              getUser(request.auth.uid).data.role == 'national' ||
+                              (getUser(request.auth.uid).data.role == 'branch' && resource.data.branchId == getUser(request.auth.uid).data.branchId)
+                            );
+    }
+
+    // Device Activity Logs Rules
+    match /deviceActivityLogs/{logId} {
+      // Any authenticated user can read logs.
+      allow get, list: if request.auth != null;
+
+      // Log creation allowed if userId matches requester or is null (system event).
+      allow create: if request.auth != null &&
+                      (request.resource.data.userId == request.auth.uid || request.resource.data.userId == null);
+
+      // Logs are immutable once created by clients.
+      allow update, delete: if false;
+    }
+
+    // Helper function to get user data from Firestore
+    function getUser(userId) {
+      return get(/databases/$(database)/documents/users/$(userId));
+    }
+  }
+}
+
+    

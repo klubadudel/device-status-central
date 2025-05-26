@@ -1,0 +1,115 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 30 50% 98%; /* Very light warm off-white */
+    --foreground: 20 10% 20%; /* Dark grey for text */
+    
+    --card: 0 0% 100%; /* White cards */
+    --card-foreground: 20 10% 20%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 20 10% 20%;
+    
+    --primary: 149 100% 26%; /* 7-Eleven Green */
+    --primary-foreground: 0 0% 100%; /* White text on primary */
+    
+    --secondary: 150 20% 92%; /* Very light desaturated green/grey */
+    --secondary-foreground: 149 100% 26%; /* Primary green text on secondary */
+    
+    --muted: 150 15% 90%;
+    --muted-foreground: 150 10% 45%;
+    
+    --accent: 31 100% 47%; /* 7-Eleven Orange */
+    --accent-foreground: 0 0% 100%; /* White text on accent */
+    
+    --destructive: 350 84% 42%; /* 7-Eleven Red */
+    --destructive-foreground: 0 0% 98%;
+
+    --warning: 30 100% 50%; /* 7-Eleven Orange for warning */
+    --warning-foreground: 0 0% 100%;
+    
+    --border: 150 10% 88%; /* Neutral border, slightly greenish */
+    --input: 150 10% 88%;
+    --ring: 149 100% 26%; /* Primary green for rings */
+    
+    --radius: 0.5rem;
+
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+
+    /* Sidebar specific colors */
+    --sidebar-background: 149 100% 20%; /* Darker 7-Eleven Green */
+    --sidebar-foreground: 0 0% 90%; /* Light text for sidebar */
+    --sidebar-primary: 31 100% 47%; /* 7-Eleven Orange for active items */
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 149 100% 30%; /* Slightly lighter Green for hover */
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 149 100% 15%; /* Very dark green border */
+    --sidebar-ring: 31 100% 47%; /* Orange for ring */
+  }
+ 
+  .dark {
+    --background: 150 10% 10%; /* Very dark desaturated green */
+    --foreground: 150 5% 90%; /* Light grey/off-white text */
+
+    --card: 150 10% 15%; /* Darker card */
+    --card-foreground: 150 5% 90%;
+
+    --popover: 150 10% 10%;
+    --popover-foreground: 150 5% 90%;
+
+    --primary: 149 70% 45%; /* Lighter 7-Eleven Green */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 150 10% 20%; /* Darker desaturated green */
+    --secondary-foreground: 150 5% 90%;
+
+    --muted: 150 10% 20%;
+    --muted-foreground: 150 5% 60%;
+
+    --accent: 31 100% 60%; /* Lighter 7-Eleven Orange */
+    --accent-foreground: 0 0% 10%; /* Dark text on lighter orange */
+
+    --destructive: 350 90% 60%; /* Lighter 7-Eleven Red */
+    --destructive-foreground: 0 0% 98%;
+
+    --warning: 30 100% 60%; /* Lighter Orange for warning */
+    --warning-foreground: 0 0% 0%; /* Black text for dark warning */
+
+    --border: 150 10% 25%;
+    --input: 150 10% 25%;
+    --ring: 149 70% 45%; /* Primary green for ring */
+    
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+
+    /* Sidebar specific colors for dark mode */
+    --sidebar-background: 150 15% 8%; /* Very dark, slightly green */
+    --sidebar-foreground: 0 0% 85%; /* Light text */
+    --sidebar-primary: 31 100% 60%; /* Lighter orange for active items */
+    --sidebar-primary-foreground: 0 0% 10%;
+    --sidebar-accent: 150 10% 18%; /* Hover/focus */
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 150 15% 5%;
+    --sidebar-ring: 31 100% 60%;
+  }
+}
+ 
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    /* Removed explicit font-family to allow Next.js font (Geist) to take precedence */
+  }
+}
