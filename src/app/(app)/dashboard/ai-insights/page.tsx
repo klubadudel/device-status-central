@@ -1,6 +1,6 @@
 
 'use client';
-import React, { useState, useEffect, useCallback, Suspense } from 'react';
+import React, { useState, useEffect, useCallback } from 'react'; // Removed Suspense
 import { useAuth } from '@/hooks/useAuth';
 import type { Device, Branch, Region } from '@/types';
 import { getDevicesByBranchId, getBranchById, getBranchesByRegion, getRegions, getBranches as getAllBranches, getDevices as getAllDevices } from '@/lib/data-service';
@@ -222,15 +222,7 @@ function AIInsightsContent() {
 }
 
 export default function AIInsightsPage() {
-  return (
-    <Suspense fallback={
-      <div className="container mx-auto py-8 px-4 space-y-6">
-        <Skeleton className="h-10 w-1/2 mb-4" />
-        <Skeleton className="h-40 w-full" />
-        <Skeleton className="h-40 w-full" />
-      </div>
-    }>
-      <AIInsightsContent />
-    </Suspense>
-  );
+  // AIInsightsContent is already a client component because 'use client' is at the top of the file.
+  // The Suspense boundary in src/app/(app)/layout.tsx will handle this page.
+  return <AIInsightsContent />;
 }
