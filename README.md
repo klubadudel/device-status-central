@@ -1,4 +1,3 @@
-
 # Device Status Central
 
 This is a web-based dashboard for managing 7-11 branches, including user creation, branch assignment, and real-time updates on equipment like AC and refrigerators. It uses **Firebase Authentication**, **Cloud Firestore**, **Cloud Real Time Database**, and **Firebase Hosting**.
@@ -72,38 +71,37 @@ firebase init
 
 ---
 
-## Project Folder Structure
+## 📁 Project Folder Structure
 
-This project follows a modular structure combining Next.js, Firebase, and Tailwind CSS for full-stack web development. Below is an overview of the folder organization and key configuration files.
+This project follows a modular structure combining **Next.js**, **Firebase**, and **Tailwind CSS** for full-stack web development. Below is an overview of the folder organization and key configuration files.
 
-├── .idx/ # Indexing metadata (can be ignored)
-├── .next/ # Next.js build output (auto-generated)
-├── .vscode/ # VSCode workspace settings
-├── docs/ # Project documentation
-├── functions/ # Firebase Cloud Functions
-├── node_modules/ # Node.js packages
-├── public/ # Static assets (images, icons, etc.)
-├── src/ # Application source code
-├── .env # Environment variables
-├── .firebaserc # Firebase project configuration
-├── .gitignore # Git ignored files
-├── .modified # Custom project tracking or notes
-├── components.json # UI component metadata (if applicable)
-├── firebase.json # Firebase hosting and configuration
-├── Firestore Security Rules/ # Firestore rules folder
-│ └── firestore.rules # Firestore security rules file
-├── next-env.d.ts # Next.js TypeScript environment declaration
-├── next.config.ts # Next.js configuration
-├── package-lock.json # npm lock file
-├── package.json # Project metadata and dependencies
-├── postcss.config.mjs # PostCSS configuration for Tailwind
-├── README.md # Project overview
-├── tailwind.config.ts # Tailwind CSS configuration
-└── tsconfig.json # TypeScript compiler configuration
+```bash
+├── .idx/                         # Indexing metadata (can be ignored)
+├── .next/                        # Next.js build output (auto-generated)
+├── .vscode/                      # VSCode workspace settings
+├── docs/                         # Project documentation
+├── functions/                    # Firebase Cloud Functions
+├── node_modules/                 # Node.js packages
+├── public/                       # Static assets (images, icons, etc.)
+├── src/                          # Application source code
+├── .env                          # Environment variables
+├── .firebaserc                   # Firebase project configuration
+├── .gitignore                    # Git ignored files
+├── .modified                     # Custom project tracking or notes
+├── components.json               # UI component metadata (if applicable)
+├── firebase.json                 # Firebase hosting and configuration
+├── Firestore Security Rules/     # Firestore rules folder
+│   └── firestore.rules           # Firestore security rules file
+├── next-env.d.ts                 # Next.js TypeScript environment declaration
+├── next.config.ts                # Next.js configuration
+├── package-lock.json             # npm lock file
+├── package.json                  # Project metadata and dependencies
+├── postcss.config.mjs            # PostCSS configuration for Tailwind
+├── README.md                     # Project overview
+├── tailwind.config.ts            # Tailwind CSS configuration
+└── tsconfig.json                 # TypeScript compiler configuration
 
-This structure is designed for maintainability, scalability, and clear separation of concerns.
-
----
+```
 
 ## Deployment
 
