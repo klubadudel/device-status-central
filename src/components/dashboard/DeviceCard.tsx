@@ -3,7 +3,7 @@ import type { Device, DeviceStatus, DeviceType } from '@/types';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Circle, Edit, Trash2, Power, Smartphone, Server, Laptop, RouterIcon as RouterLucideIcon, ShieldAlert, Settings2, Tv, HardDrive, Camera, Refrigerator, Wind, FileText } from 'lucide-react';
+import { Circle, Edit, Trash2, Smartphone, Server, Laptop, RouterIcon as RouterLucideIcon, ShieldAlert, Settings2, Tv, HardDrive, Camera, Refrigerator, Wind, FileText } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import {
   Tooltip,
@@ -99,12 +99,15 @@ export function DeviceCard({ device, onEdit, onDelete, onViewLogs, canManage }: 
 
       <CardContent className="space-y-1.5 text-sm text-muted-foreground flex-grow pb-3">
         <p><span className="font-medium text-foreground">ID:</span> {device.id}</p>
+        {device.assignedPin !== undefined && device.assignedPin !== null && (
+            <p><span className="font-medium text-foreground">GPIO Pin:</span> {device.assignedPin}</p>
+        )}
         <p><span className="font-medium text-foreground">Last Seen:</span> {new Date(device.lastSeen).toLocaleString()}</p>
         {device.notes && <p className="italic mt-1"><span className="font-medium text-foreground">Notes:</span> {device.notes}</p>}
       </CardContent>
 
       {canManage && (onEdit || onDelete || onViewLogs) && (
-        <CardFooter className="flex justify-end gap-2 border-t pt-4 pb-4 bg-muted/30">
+        <CardFooter className="flex flex-wrap justify-end gap-2 border-t pt-4 pb-4 bg-muted/30">
           {onViewLogs &&
             <Button variant="outline" size="sm" onClick={() => onViewLogs(device.id)}>
               <FileText className="mr-1.5 h-4 w-4" /> Logs
